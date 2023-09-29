@@ -3,8 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	const taskInput = document.querySelector("#task-input");
 	const reminderBtn = document.querySelector("#reminder-btn");
 	const tasksContainer = document.querySelector(".tasks-container");
-	const includeLocation =
-		document.querySelector("#location-checkbox").checked;
 
 	function renderTasks() {
 		chrome.storage.sync.get("tasks", function (data) {
@@ -34,7 +32,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	function removeTask(id) {
 		chrome.storage.sync.get("tasks", function (data) {
 			const tasks = data.tasks || [];
-			console.log(tasks);
 			const updatedTasks = tasks.filter((task) => task.taskId !== id);
 
 			chrome.storage.sync.set({ tasks: updatedTasks }, function () {
@@ -45,44 +42,43 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	renderTasks();
 
-	reminderBtn.addEventListener("click", function () {
+	reminderBtn.addEventListener("click", async function () {
 		const reminderTime = timeInput.value;
 		const task = taskInput.value;
-
-		// Check if the inputs are not empty
+		const userLocation = await fetchLocationInfo();
 		if (reminderTime && task) {
 			const taskId = uid();
 			const taskObject = {
 				taskId,
 				time: reminderTime,
-				task: task,
+				task,
+				userLocation,
 			};
-
-			// Save the task object to Chrome storage
-			chrome.storage.sync.get("tasks", function (data) {
-				const tasks = data.tasks || [];
-				const newTasks = [...tasks, taskObject];
-
-				chrome.storage.sync.set({ tasks: newTasks }, function () {
-					// Clear the input fields
-					timeInput.value = "";
-					taskInput.value = "";
-					renderTasks();
-					setAlarm(taskObject);
-					alert("Task saved successfully!");
-				});
-			});
+			saveTask(taskObject);
 		} else {
 			alert("Please enter both a reminder time and a task.");
 		}
 	});
 
-	function setAlarm(taskObject) {
-		const alarmName = taskObject.task;
-		const reminderTime = new Date(taskObject.time).getTime();
+	function saveTask(taskObject) {
+		chrome.storage.sync.get("tasks", function (data) {
+			const tasks = data.tasks || [];
+			const newTasks = [...tasks, taskObject];
 
-		const now = new Date().getTime();
-		const delay = Math.max(reminderTime - now, 0);
+			chrome.storage.sync.set({ tasks: newTasks }, function () {
+				// Clear the input fields
+				timeInput.value = "";
+				taskInput.value = "";
+				renderTasks();
+				setAlarm(taskObject);
+				alert("Task saved successfully!");
+			});
+		});
+	}
+
+	function setAlarm(taskObject) {
+		const alarmName = taskObject.taskId;
+		const reminderTime = new Date(taskObject.time).getTime();
 
 		chrome.alarms.create(alarmName, {
 			when: reminderTime,
@@ -90,6 +86,24 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 });
 
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+	if (message.action === "pendingTask") {
+		const task = message.pendingTask;
+	}
+});
+
 const uid = function () {
 	return Date.now().toString(36) + Math.random().toString(36).substr(2);
 };
+
+async function fetchLocationInfo() {
+	try {
+		const response = await fetch("https://ipinfo.io/json");
+		const data = await response.json();
+
+		// const { city, region, country, loc } = data;
+		// const userLocation = `City: ${city}, Region: ${region}, Country: ${country}, Location: ${loc}`;
+
+		return data;
+	} catch (error) {}
+}
