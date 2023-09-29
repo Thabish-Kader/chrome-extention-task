@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Reminder & Location Extension</title>
+		<!-- <link rel="stylesheet" type="text/css" href="popup.css" /> -->
+	</head>
+	<body>
+		<div class="tasks-container"></div>
+
+		<div class="popup-container">
+			<h1>Set Reminder</h1>
+			<label for="reminderTime">Reminder Time:</label>
+			<input id="reminder-time" type="datetime-local" />
+			<input id="task-input" type="text" placeholder="Enter Task..." />
+			<input type="checkbox" id="location-checkbox" /> Include my location
+
+			<button id="reminder-btn">Set Reminder</button>
+		</div>
+		<script src="popup.js"></script>
+	</body>
+</html>
