@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				const currentUrl = currentTab.url;
 				if (currentUrl.includes("github.com")) {
 					chrome.tabs.sendMessage(currentTab.id, {
-						action: "backgroundToContent",
+						action: "contentToInject",
 						textToInject: tasks,
 					});
 				}

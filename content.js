@@ -1,5 +1,5 @@
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-	if (message.action === "backgroundToContent") {
+	if (message.action === "contentToInject") {
 		const task = message.textToInject;
 		insertTaskContent(task);
 	}
