@@ -1,9 +1,9 @@
 {
 	"manifest_version": 3,
-	"name": "Geo Reminder",
+	"name": "Task Reminder",
 	"version": "1.0",
-	"description": "Chrome extension that triggers reminders based on the user's location",
-	"permissions": ["activeTab", "tabs", "alarms", "storage", "notifications"],
+	"description": "Chrome extension that triggers reminders ",
+	"permissions": ["activeTab", "tabs", "alarms", "storage"],
 	"background": {
 		"service_worker": "background.js"
 	},

@@ -55,8 +55,23 @@ input[type="text"] {
 	cursor: pointer;
 }
 
+#content-btn {
+	background-color: #007e1b;
+	color: #ffff;
+	border: none;
+	margin: 2px 0;
+	padding: 10px 20px;
+	font-size: 16px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
 #reminder-btn:hover {
 	background-color: #0056b3;
+}
+
+#content-btn:hover {
+	background-color: #00501c;
 }
 
 /* Style for individual tasks */
