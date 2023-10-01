@@ -1,0 +1,92 @@
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f0f0f0;
+}
+
+.tasks-container {
+	margin: 20px;
+	padding: 20px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.popup-container {
+	text-align: center;
+	margin: 20px;
+	padding: 20px;
+	background-color: #fff;
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+	font-size: 24px;
+	margin-bottom: 10px;
+}
+
+label {
+	display: block;
+	margin-bottom: 5px;
+	font-weight: bold;
+}
+
+input[type="datetime-local"],
+input[type="text"] {
+	width: 90%;
+	padding: 10px;
+	margin-bottom: 10px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+/* Style for the set reminder button */
+#reminder-btn {
+	background-color: #007bff;
+	color: #fff;
+	border: none;
+	padding: 10px 20px;
+	font-size: 16px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+#reminder-btn:hover {
+	background-color: #0056b3;
+}
+
+/* Style for individual tasks */
+.task {
+	border: 1px solid #ccc;
+	border-radius: 5px;
+	padding: 10px;
+	margin: 10px 0;
+	background-color: #f9f9f9;
+}
+
+.task p {
+	margin: 0;
+}
+
+/* Style for the remove button in tasks */
+#remove-btn {
+	background-color: #ff4d4d;
+	color: #fff;
+	border: none;
+	padding: 5px 10px;
+	font-size: 14px;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+#remove-btn:hover {
+	background-color: #d64040;
+}
+
+#notificationSound {
+	display: none;
+}

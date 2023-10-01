@@ -3,7 +3,7 @@
 	"name": "Geo Reminder",
 	"version": "1.0",
 	"description": "Chrome extension that triggers reminders based on the user's location",
-	"permissions": ["geolocation", "alarms", "storage", "notifications"],
+	"permissions": ["activeTab", "tabs", "alarms", "storage", "notifications"],
 	"background": {
 		"service_worker": "background.js"
 	},
